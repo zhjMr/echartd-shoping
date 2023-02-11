@@ -41,7 +41,7 @@ export default {
           top: "40%",
           left: "5%",
           right: "5%",
-          bottom: "10%",
+          bottom: "5%",
           containLable: true,
         },
         tooltip: {

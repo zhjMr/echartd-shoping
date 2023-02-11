@@ -1,9 +1,9 @@
 <template>
   <div class="com-container">
     <div class="com-chart" ref="hot_ref"></div>
-    <span class="iconfont arr-left" @click="toLeft">&#xe6ef;</span>
-    <span class="iconfont arr-right" @click="toRight">&#xe6ed;</span>
-    <span class="cat-name">{{ catName }}</span>
+    <span :style="conStyle" class="iconfont arr-left" @click="toLeft">&#xe6ef;</span>
+    <span :style="conStyle" class="iconfont arr-right" @click="toRight">&#xe6ed;</span>
+    <span :style="conStyle" class="cat-name">{{ catName }}</span>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
       chartInstance: null,
       allData: null, //服务器返回的数据
       currentIndex: 0,
+      titleFontSize: 0,
     };
   },
   computed: {
@@ -23,6 +24,11 @@ export default {
       } else {
         return this.allData[this.currentIndex].name;
       }
+    },
+    conStyle() {
+      return {
+        fontSize: this.titleFontSize + "px",
+      };
     },
   },
   created() {},
@@ -87,16 +93,16 @@ export default {
           {
             type: "pie",
             label: {
-              show: false,
+              // show: false,
             },
-            emphasis: {
-              label: {
-                show: true,
-              },
-              labelLine: {
-                show: false,
-              },
-            },
+            // emphasis: {
+            //   label: {
+            //     show: true,
+            //   },
+            //   labelLine: {
+            //     show: false,
+            //   },
+            // },
           },
         ],
       };
@@ -141,26 +147,26 @@ export default {
 
     //浏览器变化适配
     screenAdapter() {
-      const titleFontSize = (this.$refs.hot_ref.offsetWidth / 100) * 3.6;
+      this.titleFontSize = (this.$refs.hot_ref.offsetWidth / 100) * 3.6;
       //分辨率大小相关的配置
       const adapterOptino = {
         legend: {
-          itemWidth: titleFontSize / 2,
-          itemHeight: titleFontSize / 2,
-          itemGap: titleFontSize / 2,
+          itemWidth: this.titleFontSize,
+          itemHeight: this.titleFontSize ,
+          itemGap: this.titleFontSize / 2,
           textStyle: {
-            fontSzie: titleFontSize / 2,
+            fontSize: this.titleFontSize / 2,
           },
         },
         title: {
           textStyle: {
-            fontSzie: titleFontSize,
+            fontSize: this.titleFontSize,
           },
         },
-    
+
         series: [
           {
-            radius: titleFontSize * 4.5,
+            radius: this.titleFontSize * 4.5,
             center: ["50%", "60%"],
           },
         ],
